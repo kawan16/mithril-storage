@@ -57,7 +57,7 @@ By default, the library will set up a default storage of localStorage type if it
     mx.storage( ); // Returns the storage labeled with mx.DEFAULT_STORAGE_NAME
 ```
 
-#### Namespaced store
+#### Namespaced storage
 
 The library allows you to define several other storage than the default one. They just need a name ( such as the constant string mx.DEFAULT_STORAGE_NAME, that's it !
 
