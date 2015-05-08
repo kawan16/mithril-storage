@@ -5,7 +5,7 @@
 m.deps( mock.window );
 
 
-/* Store method tests */
+/* Storage configuration method tests */
 describe('mx.storage()' , function() {
 
     it( 'should be a function' , function() {
@@ -13,222 +13,89 @@ describe('mx.storage()' , function() {
     });
 
     it( 'should set up to a cookie storage' , function( ) {
-        mx.storage( mx.COOKIE_STORAGE );
-        expect( mx.storage() ).toBe( mx.COOKIE_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME , mx.COOKIE_STORAGE );
+        expect( mx.storage().constructor.name ).toBe( 'CookieStorage' );
     });
 
     it( 'should set up to a local storage' , function( ) {
-        mx.storage( mx.LOCAL_STORAGE );
-        expect( mx.storage() ).toBe( mx.LOCAL_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME  , mx.LOCAL_STORAGE );
+        expect( mx.storage().constructor.name ).toBe( 'LocalStorage' );
     });
 
     it( 'should set up to a session storage' , function( ) {
-        mx.storage( mx.SESSION_STORAGE );
-        expect( mx.storage() ).toBe( mx.SESSION_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME  , mx.SESSION_STORAGE );
+        expect( mx.storage().constructor.name ).toBe( 'SessionStorage' );
     });
 
     it( 'should set up to an in-memory storage' , function( ) {
-        mx.storage( mx.IN_MEMORY_STORAGE );
-        expect( mx.storage() ).toBe( mx.IN_MEMORY_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME  , mx.IN_MEMORY_STORAGE );
+        expect( mx.storage().constructor.name ).toBe( 'InMemoryStorage' );
     });
 
     it( 'should set up to a default storage' , function( ) {
-        mx.storage( mx.DEFAULT_STORAGE );
-        expect( mx.storage() ).toBe( mx.DEFAULT_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME , mx.DEFAULT_STORAGE );
+        var constructorName = mx.storage().constructor.name;
+        expect(  constructorName === 'CookieStorage' || constructorName === 'LocalStorage'  ).toBeTruthy();
     });
-
 
 });
 
-/* Store method tests */
-describe('mx.storage.get() / mx.storage.set() / mx.storage.remove()' , function() {
+/* Storage method tests */
+describe('Storage get() / set() / remove()' , function() {
 
-    it( 'should be functions' , function() {
-        expect( typeof mx.storage.get ).toBe( 'function' );
-        expect( typeof mx.storage.set ).toBe( 'function' );
-        expect( typeof mx.storage.remove ).toBe( 'function' );
-    });
+    function testStorageMethods( storageType ) {
 
-    it( 'should accept a string as first parameter for get()' , function( ) {
-        var call = function( _key_ ) { return function() { mx.storage.get( _key_ ) } };
-        expect( call( { an: 'object' } ) ).toThrowError( TypeError );
-        expect( call( 156 ) ).toThrowError( TypeError );
-    });
-
-    it( 'should accept a string as first parameter for set()' , function( ) {
-        var call = function( _key_ ) { return function() { mx.storage.set( _key_ , {}) } };
-        expect( call( { an: 'object' } ) ).toThrowError( TypeError );
-        expect( call( 156 ) ).toThrowError( TypeError );
-    });
-
-    it( 'should accept a string as first parameter for remove()' , function( ) {
-        var call = function( _key_ ) { return function() { mx.storage.remove( _key_ ) } };
-        expect( call( { an: 'object' } ) ).toThrowError( TypeError );
-        expect( call( 156 ) ).toThrowError( TypeError );
-    });
-
-    describe( 'using default storage ( localstorage or cookie ) ' , function( ) {
-
-        mx.storage( mx.DEFAULT_STORAGE );
+        mx.storage( mx.DEFAULT_STORAGE_NAME , storageType );
 
         it( 'should store and get a string value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
+            mx.storage().set( key , value );
+            expect( mx.storage().get( key ) ).toEqual( value );
         });
 
         it( 'should store and get a number value given a key' , function( ) {
             var key = 'number' , value = 42;
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
+            mx.storage().set( key , value );
+            expect( mx.storage().get( key ) ).toEqual( value );
         });
 
         it( 'should store and get an object value given a key' , function( ) {
             var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
+            mx.storage().set( key , value );
+            expect( mx.storage().get( key ) ).toEqual( value );
         });
 
         it( 'should remove an existing key/value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            mx.storage.remove( key );
-            expect( mx.storage.get( key ) ).toBe( null );
+            mx.storage().set( key , value );
+            mx.storage().remove( key );
+            expect( mx.storage().get( key ) ).toBe( null );
         });
 
+    }
+
+    describe( 'using default storage ( localstorage or cookie ) ' , function( ) {
+        testStorageMethods( mx.DEFAULT_STORAGE );
     });
 
     describe( 'using cookie storage' , function( ) {
+        testStorageMethods( mx.COOKIE_STORAGE );
+    });
 
-        mx.storage( mx.COOKIE_STORAGE );
-
-        it( 'should store and get a string value given a key' , function( ) {
-            var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should store and get a number value given a key' , function( ) {
-            var key = 'number' , value = 42;
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should store and get an object value given a key' , function( ) {
-            var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should remove an existing key/value given a key' , function( ) {
-            var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            mx.storage.remove( key );
-            expect( mx.storage.get( key ) ).toBe( null );
-        });
-
+    describe( 'using in-memory storage' , function( ) {
+        testStorageMethods( mx.IN_MEMORY_STORAGE );
     });
 
     if( !!window.localStorage) {
-
         describe( 'using local storage' , function( ) {
-
-            mx.storage( mx.LOCAL_STORAGE );
-
-            it( 'should store and get a string value given a key' , function( ) {
-                var key = 'user' , value = 'Toto';
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should store and get a number value given a key' , function( ) {
-                var key = 'number' , value = 42;
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should store and get an object value given a key' , function( ) {
-                var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should remove an existing key/value given a key' , function( ) {
-                var key = 'user' , value = 'Toto';
-                mx.storage.set( key , value );
-                mx.storage.remove( key );
-                expect( mx.storage.get( key ) ).toBe( null );
-            });
-
+            testStorageMethods( mx.LOCAL_STORAGE );
         });
     }
 
     if( !!window.sessionStorage) {
-
         describe( 'using session storage' , function( ) {
-
-            mx.storage( mx.SESSION_STORAGE );
-
-            it( 'should store and get a string value given a key' , function( ) {
-                var key = 'user' , value = 'Toto';
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should store and get a number value given a key' , function( ) {
-                var key = 'number' , value = 42;
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should store and get an object value given a key' , function( ) {
-                var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-                mx.storage.set( key , value );
-                expect( mx.storage.get( key ) ).toEqual( value );
-            });
-
-            it( 'should remove an existing key/value given a key' , function( ) {
-                var key = 'user' , value = 'Toto';
-                mx.storage.set( key , value );
-                mx.storage.remove( key );
-                expect( mx.storage.get( key ) ).toBe( null );
-            });
-
+            testStorageMethods( mx.SESSION_STORAGE);
         });
-
     }
-
-
-    describe( 'using in-memory storage' , function( ) {
-
-        mx.storage( mx.IN_MEMORY_STORAGE );
-
-        it( 'should store and get a string value given a key' , function( ) {
-            var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should store and get a number value given a key' , function( ) {
-            var key = 'number' , value = 42;
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should store and get an object value given a key' , function( ) {
-            var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.storage.set( key , value );
-            expect( mx.storage.get( key ) ).toEqual( value );
-        });
-
-        it( 'should remove an existing key/value given a key' , function( ) {
-            var key = 'user' , value = 'Toto';
-            mx.storage.set( key , value );
-            mx.storage.remove( key );
-            expect( mx.storage.get( key ) ).toBe( null );
-        });
-
-    });
-
 
 });
