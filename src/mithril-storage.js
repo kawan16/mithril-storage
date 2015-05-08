@@ -61,6 +61,15 @@
     };
 
     /**
+     * Removes the key value from the store
+     * @param {string} key      a storage key
+     */
+    mx.store.remove = function( key ) {
+         validators.string( key );
+         storage.remove( key );
+    }
+
+    /**
     * Set the current storage
     * @param {string}
     */
