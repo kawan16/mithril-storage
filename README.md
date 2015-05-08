@@ -27,6 +27,23 @@ UNDER DEVELOPMENT
 
 ### The `mx.storage` function
 
+By default, the library will set the storage to localStorage if it exists otherwise it will store date in the cookies. However, if you want to select a specific way to store, you can choose among the three storage ( cookie , localStorage, sessionStorage ) by using the `mx.storage` function and constants:
+
+```js
+
+    // Set the storage to the default storage (localStorage or Cookie )
+    mx.storage( mx.DEFAULT_STORAGE );
+    // Set the storage to cookie
+    mx.storage( mx.COOKIE_STORAGE );
+    // Set the storage to localStorage
+    mx.storage( mx.LOCAL_STORAGE );
+    // Set the storage to sessionStorage
+    mx.storage( mx.SESSION_STORAGE );
+
+    
+    // Returns the current storage
+    mx.storage( ); // mx.SESSION_STORAGE
+```
 
 ### The `mx.store` function
 
