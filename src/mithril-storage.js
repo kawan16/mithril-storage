@@ -2,9 +2,6 @@
 
 
 
-
-    'use strict';
-
     window.mx = window.mx ||  {};
 
     /*
@@ -43,6 +40,12 @@
      */
      var storage;
 
+     /**
+      * The storage name
+      */
+      var storageName;
+
+
     /**
      * Get / Set the value from the store given a key
      * @param {string} key      a storage key
@@ -51,23 +54,58 @@
     mx.store = function( key , value ) {
         validators.string( key );
         if( value ) {
-            return storage.get( key );
-        } else {
             storage.set( key , value );
+        } else {
+            return storage.get( key );
         }
     };
 
-    /* Default storage */
+    /**
+    * Set the current storage
+    * @param {string}
+    */
+    mx.storage = function( name ) {
+        if( name ) {
+            switch( name ) {
+                case mx.COOKIE_STORAGE:
+                    storage = new CookieStorage();
+                    break;
+                case mx.LOCAL_STORAGE:
+                    storage = new LocalStorage();
+                    break;
+                case mx.SESSION_STORAGE:
+                    storage = new SessionStorage();
+                    break;
+                case mx.DEFAULT_STORAGE:
+                    $defaultStorage();
+                    break;
+                default:
+                    throw new Error( name + ' is not a valid storage name.' );
+            }
+            storageName = name;
+        } else {
+            return storageName;
+        }
+    };
+
+    /**
+     * Constants used to set custom storage
+     */
+     mx.COOKIE_STORAGE      = "cookie";
+     mx.LOCAL_STORAGE       = "local";
+     mx.SESSION_STORAGE     = "session";
+     mx.DEFAULT_STORAGE     = "default";
 
     /**
      * Set the storage to the LocalStorage if exists
      * Otherwise set to the CookieStorage
      */
     function $defaultStorage() {
-        console.log( LocalStorage.isAvailable() );
         if( LocalStorage.isAvailable() ) {
+            storageName = mx.LOCAL_STORAGE;
             storage = new LocalStorage( );
         } else {
+            storageName = mx.COOKIE_STORAGE;
             storage = new CookieStorage( );
         }
     }
