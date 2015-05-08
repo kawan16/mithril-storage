@@ -19,9 +19,10 @@
      */
     CookieStorage.prototype.set = function ( key , value ) {
         var expiration = new Date();
+        var stringifiedValue = JSON.stringify( value );
         expiration.setTime( expiration.getTime() + ( NB_EXPIRATION_DAYS * 24*60*60*1000 ) );
         var expires = 'expires='+d.toUTCString();
-        this.$storage += key + '=' + value + '; ' + expires;
+        this.$storage += key + '=' + stringifiedValue + '; ' + expires;
     };
 
 
@@ -38,7 +39,7 @@
                 cookie = cookie.substring( 1 );
             }
             if (cookie.indexOf( name ) == 0 ) {
-                return cookie.substring( name.length , cookie.length );
+                return JSON.parse( cookie.substring( name.length , cookie.length ) );
             }
         }
         return "";

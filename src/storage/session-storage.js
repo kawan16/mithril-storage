@@ -4,7 +4,7 @@
      * Default constructor of Cookie Store
      */
     function SessionStorage( ) {
-        // TODO
+         this.$storage = window.sessionStorage;
     }
 
     /**
@@ -13,7 +13,7 @@
      * @param {object} value a value
      */
     SessionStorage.prototype.set = function ( key , value ) {
-        // TODO
+         this.$storage.setItem( key , JSON.stringify( value ) );
     };
 
 
@@ -22,7 +22,7 @@
      * @param {string} key a key
      */
     SessionStorage.prototype.get = function ( key ) {
-        // TODO
+         JSON.parse( this.$storage.getItem( key ) );
     };
 
     /**
@@ -30,6 +30,14 @@
      * @param {string} key a key
      */
     SessionStorage.prototype.remove = function ( key ) {
-        // TODO
+        this.$storage.removeItem( key );
     };
+
+    /**
+     * Returns true if the current browser has a sessionStorage
+     */
+    SessionStorage.isAvailable = function( ) {
+    return !!window.sessionStorage;
+    }
+
 

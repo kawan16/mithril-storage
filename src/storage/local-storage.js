@@ -13,7 +13,7 @@
     * @param {object} value a value
     */
     LocalStorage.prototype.set = function ( key , value ) {
-        this.$storage.setItem( key , value );
+        this.$storage.setItem( key , JSON.stringify( value ) );
     };
 
 
@@ -22,7 +22,7 @@
     * @param {string} key a key
     */
     LocalStorage.prototype.get = function ( key ) {
-        this.$storage.getItem( key );
+        return  JSON.parse( this.$storage.getItem( key ) );
     };
 
    /**
