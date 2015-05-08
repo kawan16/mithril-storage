@@ -201,8 +201,6 @@
 
 
 
-
-
     window.mx = window.mx ||  {};
 
     /*
@@ -237,17 +235,12 @@
     };
 
     /**
-     * The storage
+     * The set of storages
      */
-     var storage;
-
-     /**
-      * The storage name
-      */
-      var storageName;
+     var storages = {};
 
     /**
-     * Constants used to set specific storage
+     * Constants used to set specific storage type
      */
     mx.COOKIE_STORAGE      = "cookie";
     mx.LOCAL_STORAGE       = "local";
@@ -255,14 +248,21 @@
     mx.IN_MEMORY_STORAGE   = "in-memory";
     mx.DEFAULT_STORAGE     = "default";
 
+    /**
+     * Constant as default storage index
+     */
+    mx.DEFAULT_STORAGE_NAME = 'default';
+
 
     /**
-    * Set the current storage
-    * @param {string}
+    * Set the current or namespaced  storage of given type
+    * @param {string} namespace The storage namespace
+    * @param
     */
-    mx.storage = function( name ) {
-        if( name ) {
-            switch( name ) {
+    mx.storage = function( name , type ) {
+        var storage;
+        if( type ) {
+            switch( type ) {
                 case mx.COOKIE_STORAGE:
                     storage = new CookieStorage();
                     break;
@@ -276,43 +276,14 @@
                     storage = new InMemoryStorage();
                     break;
                 case mx.DEFAULT_STORAGE:
-                    $defaultStorage();
+                    storage = $defaultStorage();
                     break;
                 default:
-                    throw new Error( name + ' is not a valid storage name.' );
+                    throw new Error( type + ' is not a valid storage type.' );
             }
-            storageName = name;
-        } else {
-            return storageName;
+            storages[ name || mx.DEFAULT_STORAGE_NAME ] = storage;
         }
-    };
-
-    /**
-     * Get  the value from the store given a key
-     * @param {string} key      a storage key
-     */
-    mx.storage.get = function( key ) {
-        validators.string( key );
-        return storage.get( key );
-    };
-
-    /**
-     * Set a value from the store given a key
-     * @param {string} key      a storage key
-     * @param {object} value    the value to set
-     */
-    mx.storage.set = function( key , value ) {
-        validators.string( key );
-        return storage.set( key , value );
-    };
-
-    /**
-     * Removes the key value from the store
-     * @param {string} key      a storage key
-     */
-    mx.storage.remove = function( key ) {
-        validators.string( key );
-        storage.remove( key );
+        return storages[ name || mx.DEFAULT_STORAGE_NAME ];
     };
 
     /**
@@ -321,14 +292,11 @@
      */
     function $defaultStorage() {
         if( LocalStorage.isAvailable() ) {
-            storageName = mx.LOCAL_STORAGE;
-            storage = new LocalStorage( );
+            return storages[ mx.DEFAULT_STORAGE_NAME ] = new LocalStorage( );
         } else {
-            storageName = mx.COOKIE_STORAGE;
-            storage = new CookieStorage( );
+            return storages[ mx.DEFAULT_STORAGE_NAME ] = new CookieStorage( );
         }
     }
-
     $defaultStorage();
 
 }( m ));
