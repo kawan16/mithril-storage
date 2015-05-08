@@ -1,4 +1,4 @@
-# mithril-storage [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# Mithril Storage [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 =================
 
 Mithril Storage is a library which allows to store locally your mithril applications data through cookies, local storage or
