@@ -32,31 +32,30 @@ module.exports = function (grunt) {
             }
         },
 
-        // Put files not handled in minification in other tasks here
-        copy: {
+        // Concatenation of source files
+        concat: {
             dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= config.src %>',
-                    dest: '<%= config.dist %>',
-                    src: [
-                        '*.js'
-                    ]
-                }]
+                src: [
+                    '<%= config.src %>/mithril-storage.prefix.js',
+                    '<%= config.src %>/storage/*.js',
+                    '<%= config.src %>/mithril-storage.js',
+                    '<%= config.src %>/mithril-storage.suffix.js',
+                ],
+                dest: '<%= config.dist %>/mithril-storage.js'
             }
         },
+
         // Minification uglify
         uglify: {
             dist: {
                 files: {
-                    '<%= config.dist %>/mithril-ui-router.min.js': [
-                        '<%= config.dist %>/mithril-ui-router.js'
+                    '<%= config.dist %>/mithril-storage.min.js': [
+                        '<%= config.dist %>/mithril-storage.js'
                     ]
                 },
                 options: {
                     mangle:false,
-                    sourceMap: 'mithril-ui-router.js.map',
+                    sourceMap: 'mithril-storage.js.map',
                     sourceMapRoot: 'http://localhost/',
                     banner: '/*! <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 }
@@ -91,6 +90,6 @@ module.exports = function (grunt) {
     //run just the tests
     grunt.registerTask('test', ['connect:test', 'jasmine' ]);
     // Build the package
-    grunt.registerTask('build', [ 'clean:dist', 'copy:dist', 'uglify' ]);
+    grunt.registerTask('build', [ 'clean:dist', 'concat:dist', 'uglify' ]);
 
 };
