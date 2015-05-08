@@ -58,7 +58,7 @@ The `mx.storage.get` and `mx.storage.set` functions allow you to get and set val
 
 ### The `mx.storage.remove`  function
 
-Once you store a key/value, we can remove it if we want: 
+Once you store a key/value, you can remove it: 
 
 ```js
     mx.storage.set( 'user' , 'kawan16' ); 
