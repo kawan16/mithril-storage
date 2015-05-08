@@ -47,7 +47,7 @@ By default, the library will set the storage to localStorage if it exists otherw
 
 ### The `mx.store` function
 
-```
+
 
 ## History
 
