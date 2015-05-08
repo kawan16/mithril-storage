@@ -108,6 +108,7 @@ Once you store a key/value, you can remove it:
 
 ## History
 
+* 0.1.0 - Initial release
 
 ## License
 
