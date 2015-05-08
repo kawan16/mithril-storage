@@ -70,6 +70,13 @@ describe('mx.store()' , function() {
             expect( mx.store( key ) ).toEqual( value );
         });
 
+        it( 'should remove an existing key/value given a key' , function( ) {
+            var key = 'user' , value = 'Toto';
+            mx.store( key , value );
+            mx.store.remove( key );
+            expect( mx.store( key ) ).toBe( null );
+        });
+
     });
 
     describe( 'using cookie storage' , function( ) {
@@ -92,6 +99,13 @@ describe('mx.store()' , function() {
             var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
             mx.store( key , value );
             expect( mx.store( key ) ).toEqual( value );
+        });
+
+        it( 'should remove an existing key/value given a key' , function( ) {
+            var key = 'user' , value = 'Toto';
+            mx.store( key , value );
+            mx.store.remove( key );
+            expect( mx.store( key ) ).toBe( null );
         });
 
     });
@@ -120,6 +134,13 @@ describe('mx.store()' , function() {
                 expect( mx.store( key ) ).toEqual( value );
             });
 
+            it( 'should remove an existing key/value given a key' , function( ) {
+                var key = 'user' , value = 'Toto';
+                mx.store( key , value );
+                mx.store.remove( key );
+                expect( mx.store( key ) ).toBe( null );
+            });
+
         });
     }
 
@@ -145,6 +166,13 @@ describe('mx.store()' , function() {
                 var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
                 mx.store( key , value );
                 expect( mx.store( key ) ).toEqual( value );
+            });
+
+            it( 'should remove an existing key/value given a key' , function( ) {
+                var key = 'user' , value = 'Toto';
+                mx.store( key , value );
+                mx.store.remove( key );
+                expect( mx.store( key ) ).toBe( null );
             });
 
         });
