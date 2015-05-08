@@ -45,29 +45,15 @@
       */
       var storageName;
 
-
     /**
-     * Get / Set the value from the store given a key
-     * @param {string} key      a storage key
-     * @param {object} value    a value to store
+     * Constants used to set specific storage
      */
-    mx.store = function( key , value ) {
-        validators.string( key );
-        if( value ) {
-            storage.set( key , value );
-        } else {
-            return storage.get( key );
-        }
-    };
+    mx.COOKIE_STORAGE      = "cookie";
+    mx.LOCAL_STORAGE       = "local";
+    mx.SESSION_STORAGE     = "session";
+    mx.IN_MEMORY_STORAGE   = "in-memory";
+    mx.DEFAULT_STORAGE     = "default";
 
-    /**
-     * Removes the key value from the store
-     * @param {string} key      a storage key
-     */
-    mx.store.remove = function( key ) {
-         validators.string( key );
-         storage.remove( key );
-    }
 
     /**
     * Set the current storage
@@ -85,7 +71,7 @@
                 case mx.SESSION_STORAGE:
                     storage = new SessionStorage();
                     break;
-                case mx.SESSION_STORAGE:
+                case mx.IN_MEMORY_STORAGE:
                     storage = new InMemoryStorage();
                     break;
                 case mx.DEFAULT_STORAGE:
@@ -101,13 +87,32 @@
     };
 
     /**
-     * Constants used to set custom storage
+     * Get  the value from the store given a key
+     * @param {string} key      a storage key
      */
-     mx.COOKIE_STORAGE      = "cookie";
-     mx.LOCAL_STORAGE       = "local";
-     mx.SESSION_STORAGE     = "session";
-     mx.IN_MEMORY_STORAGE     = "session";
-     mx.DEFAULT_STORAGE     = "default";
+    mx.storage.get = function( key ) {
+        validators.string( key );
+        return storage.get( key );
+    };
+
+    /**
+     * Set a value from the store given a key
+     * @param {string} key      a storage key
+     * @param {object} value    the value to set
+     */
+    mx.storage.set = function( key , value ) {
+        validators.string( key );
+        return storage.set( key , value );
+    };
+
+    /**
+     * Removes the key value from the store
+     * @param {string} key      a storage key
+     */
+    mx.storage.remove = function( key ) {
+        validators.string( key );
+        storage.remove( key );
+    };
 
     /**
      * Set the storage to the LocalStorage if exists
