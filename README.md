@@ -40,21 +40,35 @@ By default, the library will set the storage to localStorage if it exists otherw
     mx.storage( ); // mx.SESSION_STORAGE
 ```
 
-### The `mx.store` function
+### The `mx.storage.get`,  `mx.storage.set`  function
 
-The `mx.store` function allows you to get and set values in the storage. In order to store a value, you just need to specify a string key. Note that the type of value you set is the same one than you get. )
+The `mx.storage.get` and `mx.storage.set` functions allow you to get and set values in the storage. In order to store a value, you just need to specify a string key. Note that the type of value you set is the same one than you get. )
 
 ```js
-    mx.store( 'user' , 'kawan16' ); 
-    mx.store( 'document' , { title:' A title' , content: 'Some content' } ); 
-    mx.store( 'number' , 42 );
+    mx.storage.set( 'user' , 'kawan16' ); 
+    mx.storage.set( 'document' , { title:' A title' , content: 'Some content' } ); 
+    mx.storage.set( 'number' , 42 );
     
     // Later
     
-    mx.store( 'user' ); // Returns 'kawan16'
-    mx.store( 'document' ); // Returns { title:' A title' , content: 'Some content' } 
-    mx.store( 'number' ); // Returns 42
+    mx.storage.get( 'user' ); // Returns 'kawan16'
+    mx.storage.get( 'document' ); // Returns { title:' A title' , content: 'Some content' } 
+    mx.storage.get( 'number' ); // Returns 42
 ```
+
+### The `mx.storage.remove`  function
+
+Once you store a key/value, we can remove it if we want: 
+
+```js
+    mx.storage.set( 'user' , 'kawan16' ); 
+    
+    // Later
+    
+    mx.storage.remove( 'user' ); // Delete 'user' / 'kawan16'
+    mx.storage.get( 'user' ); // returns null
+```
+
 
 ## History
 
