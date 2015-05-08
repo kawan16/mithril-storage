@@ -41,14 +41,28 @@ describe('mx.storage()' , function() {
 });
 
 /* Store method tests */
-describe('mx.store()' , function() {
+describe('mx.storage.get() / mx.storage.set() / mx.storage.remove()' , function() {
 
-    it( 'should be a function' , function() {
-        expect( typeof mx.store ).toBe( 'function' );
+    it( 'should be functions' , function() {
+        expect( typeof mx.storage.get ).toBe( 'function' );
+        expect( typeof mx.storage.set ).toBe( 'function' );
+        expect( typeof mx.storage.remove ).toBe( 'function' );
     });
 
-    it( 'should accept a string as first parameter' , function( ) {
-        var call = function( _key_ ) { return function() { mx.store( _key_ , {} ) } };
+    it( 'should accept a string as first parameter for get()' , function( ) {
+        var call = function( _key_ ) { return function() { mx.storage.get( _key_ ) } };
+        expect( call( { an: 'object' } ) ).toThrowError( TypeError );
+        expect( call( 156 ) ).toThrowError( TypeError );
+    });
+
+    it( 'should accept a string as first parameter for set()' , function( ) {
+        var call = function( _key_ ) { return function() { mx.storage.set( _key_ , {}) } };
+        expect( call( { an: 'object' } ) ).toThrowError( TypeError );
+        expect( call( 156 ) ).toThrowError( TypeError );
+    });
+
+    it( 'should accept a string as first parameter for remove()' , function( ) {
+        var call = function( _key_ ) { return function() { mx.storage.remove( _key_ ) } };
         expect( call( { an: 'object' } ) ).toThrowError( TypeError );
         expect( call( 156 ) ).toThrowError( TypeError );
     });
@@ -59,27 +73,27 @@ describe('mx.store()' , function() {
 
         it( 'should store and get a string value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get a number value given a key' , function( ) {
             var key = 'number' , value = 42;
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get an object value given a key' , function( ) {
             var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should remove an existing key/value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            mx.store.remove( key );
-            expect( mx.store( key ) ).toBe( null );
+            mx.storage.set( key , value );
+            mx.storage.remove( key );
+            expect( mx.storage.get( key ) ).toBe( null );
         });
 
     });
@@ -90,27 +104,27 @@ describe('mx.store()' , function() {
 
         it( 'should store and get a string value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get a number value given a key' , function( ) {
             var key = 'number' , value = 42;
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get an object value given a key' , function( ) {
             var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should remove an existing key/value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            mx.store.remove( key );
-            expect( mx.store( key ) ).toBe( null );
+            mx.storage.set( key , value );
+            mx.storage.remove( key );
+            expect( mx.storage.get( key ) ).toBe( null );
         });
 
     });
@@ -123,27 +137,27 @@ describe('mx.store()' , function() {
 
             it( 'should store and get a string value given a key' , function( ) {
                 var key = 'user' , value = 'Toto';
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should store and get a number value given a key' , function( ) {
                 var key = 'number' , value = 42;
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should store and get an object value given a key' , function( ) {
                 var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should remove an existing key/value given a key' , function( ) {
                 var key = 'user' , value = 'Toto';
-                mx.store( key , value );
-                mx.store.remove( key );
-                expect( mx.store( key ) ).toBe( null );
+                mx.storage.set( key , value );
+                mx.storage.remove( key );
+                expect( mx.storage.get( key ) ).toBe( null );
             });
 
         });
@@ -157,27 +171,27 @@ describe('mx.store()' , function() {
 
             it( 'should store and get a string value given a key' , function( ) {
                 var key = 'user' , value = 'Toto';
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should store and get a number value given a key' , function( ) {
                 var key = 'number' , value = 42;
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should store and get an object value given a key' , function( ) {
                 var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-                mx.store( key , value );
-                expect( mx.store( key ) ).toEqual( value );
+                mx.storage.set( key , value );
+                expect( mx.storage.get( key ) ).toEqual( value );
             });
 
             it( 'should remove an existing key/value given a key' , function( ) {
                 var key = 'user' , value = 'Toto';
-                mx.store( key , value );
-                mx.store.remove( key );
-                expect( mx.store( key ) ).toBe( null );
+                mx.storage.set( key , value );
+                mx.storage.remove( key );
+                expect( mx.storage.get( key ) ).toBe( null );
             });
 
         });
@@ -191,27 +205,27 @@ describe('mx.store()' , function() {
 
         it( 'should store and get a string value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get a number value given a key' , function( ) {
             var key = 'number' , value = 42;
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should store and get an object value given a key' , function( ) {
             var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
-            mx.store( key , value );
-            expect( mx.store( key ) ).toEqual( value );
+            mx.storage.set( key , value );
+            expect( mx.storage.get( key ) ).toEqual( value );
         });
 
         it( 'should remove an existing key/value given a key' , function( ) {
             var key = 'user' , value = 'Toto';
-            mx.store( key , value );
-            mx.store.remove( key );
-            expect( mx.store( key ) ).toBe( null );
+            mx.storage.set( key , value );
+            mx.storage.remove( key );
+            expect( mx.storage.get( key ) ).toBe( null );
         });
 
     });
