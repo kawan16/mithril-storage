@@ -70,6 +70,14 @@ The library allows you to define several other storages than the default one. Th
     
     // One storage for persistent data 
     var persistentStorage = mx.storage( 'persistent' , mx.LOCAL_STORAGE );
+    
+    
+    // Accessors 
+    
+    mx.storage( 'userModel' ); // Returns userModel
+    mx.storage( 'userModel' ); // Returns statsStore
+    mx.storage( 'persistent' ); // Returns persistentStorage
+    
 ```
 
 ### The `mx.storage.get`,  `mx.storage.set`  function
