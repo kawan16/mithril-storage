@@ -24,42 +24,42 @@ By default, the library will set up a default storage of localStorage type if it
 
 ```js
 
-    // Write nothing and it will set a default storage
+    // Write nothing and it will set a default storage of default type ( localStorage or cookie storage )
     
     // -- OR -- 
     
-    // Set explicitely the storage to the default storage ( localStorage or cookie storage )
+    // Set explicitely the default storage to the default storage ( localStorage or cookie storage )
     // This line is useless but works since this is the configuration by default
     mx.storage( mx.DEFAULT_STORAGE_NAME , mx.DEFAULT_STORAGE ); // Returns the storage
     
     // -- OR -- 
     
-    // Set the storage to cookie
+    // Set the default storage to cookie
     mx.storage( mx.DEFAULT_STORAGE_NAME , mx.COOKIE_STORAGE ); // Returns the storage
     
      // -- OR -- 
      
-    // Set the storage to localStorage
+    // Set the default storage to localStorage
     mx.storage( mx.DEFAULT_STORAGE_NAME , mx.LOCAL_STORAGE ); // Returns the storage
     
      // -- OR -- 
      
-    // Set the storage to sessionStorage
+    // Set the default storage to sessionStorage
     mx.storage( mx.DEFAULT_STORAGE_NAME , mx.IN_MEMORY_STORAGE ); // Returns the storage
-    // Set the storage to sessionStorage
-    
+ 
      // -- OR -- 
-     
+        
+    // Set the default storage to sessionStorage
     mx.storage( mx.DEFAULT_STORAGE_NAME , mx.SESSION_STORAGE ); // Returns the storage
 
     
-    // Returns the current storage
+    // Returns the default storage
     mx.storage( ); // Returns the storage labeled with mx.DEFAULT_STORAGE_NAME
 ```
 
 #### Namespaced storage
 
-The library allows you to define several other storage than the default one. They just need a name ( such as the constant string mx.DEFAULT_STORAGE_NAME ), that's it !
+The library allows you to define several other storages than the default one. They just need a name ( such as the constant default string mx.DEFAULT_STORAGE_NAME ), that's it !
 
 ```js
     // One storage for some user model
