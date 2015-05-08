@@ -75,7 +75,6 @@
                     storage = new InMemoryStorage();
                     break;
                 case mx.DEFAULT_STORAGE:
-                    console.log( ' default ');
                     storage = $defaultStorage();
                     break;
                 default:
