@@ -38,10 +38,31 @@ describe('mx.storage()' , function() {
         expect(  constructorName === 'CookieStorage' || constructorName === 'LocalStorage'  ).toBeTruthy();
     });
 
+    describe( 'with name' , function( ) {
+
+        it( 'should set up several labeled storages' , function( ) {
+            var storageName1 = 'myStorage1',
+                storageName2 = 'myStorage2',
+                storageName3 = 'myStorage3';
+
+            mx.storage( storageName1 , mx.IN_MEMORY_STORAGE );
+            mx.storage( storageName2 , mx.COOKIE_STORAGE );
+            mx.storage( storageName3 , mx.SESSION_STORAGE );
+
+            expect( mx.storage( storageName1 )).toBeDefined();
+            expect( mx.storage( storageName1 ).constructor.name).toBe( 'InMemoryStorage' );
+            expect( mx.storage( storageName2 )).toBeDefined();
+            expect( mx.storage( storageName2 ).constructor.name).toBe( 'CookieStorage' );
+            expect( mx.storage( storageName3 )).toBeDefined();
+            expect( mx.storage( storageName3 ).constructor.name).toBe( 'SessionStorage' );
+        });
+
+    });
+
 });
 
 /* Storage method tests */
-describe('Storage get() / set() / remove()' , function() {
+describe('mx.storage().get() / mx.storage().set() / mx.storage().remove()' , function() {
 
     function testStorageMethods( storageType ) {
 
@@ -99,3 +120,4 @@ describe('Storage get() / set() / remove()' , function() {
     }
 
 });
+
