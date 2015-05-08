@@ -85,6 +85,9 @@
                 case mx.SESSION_STORAGE:
                     storage = new SessionStorage();
                     break;
+                case mx.SESSION_STORAGE:
+                    storage = new InMemoryStorage();
+                    break;
                 case mx.DEFAULT_STORAGE:
                     $defaultStorage();
                     break;
@@ -103,6 +106,7 @@
      mx.COOKIE_STORAGE      = "cookie";
      mx.LOCAL_STORAGE       = "local";
      mx.SESSION_STORAGE     = "session";
+     mx.IN_MEMORY_STORAGE     = "session";
      mx.DEFAULT_STORAGE     = "default";
 
     /**
