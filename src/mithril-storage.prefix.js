@@ -1,0 +1,3 @@
+ /* global m */
+
+(function( m ) {

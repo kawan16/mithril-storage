@@ -1,0 +1,69 @@
+
+    /**
+     * The number of days until the cookie should expire
+     */
+    var NB_EXPIRATION_DAYS = 10;
+
+    /**
+     * Default constructor of Cookie Store
+     */
+    function CookieStorage( ) {
+        this.$storage = document.cookie = '';
+    }
+
+
+    /**
+     * Stores the value for a given key
+     * @param {string} key   a key
+     * @param {object} value a value
+     */
+    CookieStorage.prototype.set = function ( key , value ) {
+        var expiration = new Date();
+        expiration.setTime( expiration.getTime() + ( NB_EXPIRATION_DAYS * 24*60*60*1000 ) );
+        var expires = 'expires='+d.toUTCString();
+        this.$storage += key + '=' + value + '; ' + expires;
+    };
+
+
+    /**
+     * Returns the value given a key
+     * @param {string} key a key
+     */
+    CookieStorage.prototype.get = function ( key ) {
+        var name = key + "=";
+        var splitCookies = this.$storage.split( ';' );
+        for( var i=0; i < splitCookies.length; i++ ) {
+            var cookie = splitCookie[ i ];
+            while ( cookie.charAt( 0 ) == ' ' ) {
+                cookie = cookie.substring( 1 );
+            }
+            if (cookie.indexOf( name ) == 0 ) {
+                return cookie.substring( name.length , cookie.length );
+            }
+        }
+        return "";
+    };
+
+    /**
+     * Removes the key from the store
+     * @param {string} key a key
+     */
+    CookieStorage.prototype.remove = function ( key ) {
+        var name = key + "=";
+        var splitCookies =  this.$storage.split( ';' );
+        for( var i=0; i < splitCookies.length; i++ ) {
+            var cookie = splitCookie[ i ];
+            while ( cookie.charAt( 0 ) == ' ' ) {
+                cookie = cookie.substring( 1 );
+            }
+            if (cookie.indexOf( name ) == 0 ) {
+                 var cookieIndex = this.$storage.indexOf( cookie );
+                 this.$storage = this.$storage.slice( cookieIndex , cookieIndex + cookie.length );
+            }
+        }
+        return "";
+    };
+
+
+
+

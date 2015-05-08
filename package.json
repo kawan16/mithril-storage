@@ -1,0 +1,32 @@
+{
+  "name": "mithril-storage",
+  "description": "A state-based router for Mithril.js",
+  "version": "0.0.1",
+  "author": {
+    "name": "Karl Devooght",
+    "email": "karl.devooght@gmail.com",
+    "url": "https://github.com/kawan16/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krampstudio/mithril-ui-router.git"
+  },
+  "main": "src/mithril-ui-router.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jasmine": "^0.8.2",
+    "grunt-contrib-uglify": "~0.2.0",
+    "matchdep": "~0.1.2"
+  },
+  "keywords": [
+    "mithril",
+    "storage",
+    "localstorage"
+  ]
+}
