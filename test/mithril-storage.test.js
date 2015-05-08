@@ -27,6 +27,11 @@ describe('mx.storage()' , function() {
         expect( mx.storage() ).toBe( mx.SESSION_STORAGE );
     });
 
+    it( 'should set up to an in-memory storage' , function( ) {
+        mx.storage( mx.IN_MEMORY_STORAGE );
+        expect( mx.storage() ).toBe( mx.IN_MEMORY_STORAGE );
+    });
+
     it( 'should set up to a default storage' , function( ) {
         mx.storage( mx.DEFAULT_STORAGE );
         expect( mx.storage() ).toBe( mx.DEFAULT_STORAGE );
@@ -179,6 +184,37 @@ describe('mx.store()' , function() {
 
     }
 
+
+    describe( 'using in-memory storage' , function( ) {
+
+        mx.storage( mx.IN_MEMORY_STORAGE );
+
+        it( 'should store and get a string value given a key' , function( ) {
+            var key = 'user' , value = 'Toto';
+            mx.store( key , value );
+            expect( mx.store( key ) ).toEqual( value );
+        });
+
+        it( 'should store and get a number value given a key' , function( ) {
+            var key = 'number' , value = 42;
+            mx.store( key , value );
+            expect( mx.store( key ) ).toEqual( value );
+        });
+
+        it( 'should store and get an object value given a key' , function( ) {
+            var key = 'document' , value = { title: 'A title ' , content: 'Some content ' };
+            mx.store( key , value );
+            expect( mx.store( key ) ).toEqual( value );
+        });
+
+        it( 'should remove an existing key/value given a key' , function( ) {
+            var key = 'user' , value = 'Toto';
+            mx.store( key , value );
+            mx.store.remove( key );
+            expect( mx.store( key ) ).toBe( null );
+        });
+
+    });
 
 
 });
