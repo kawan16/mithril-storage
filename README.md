@@ -1,8 +1,7 @@
 # Mithril Storage [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 =================
 
-Mithril Storage is a library which allows to store locally your mithril applications data through cookies, local storage or
-session storage.
+Mithril Storage is a library which allows to store locally your mithril applications data through cookies, local storage, in-memory or session storage.
 
 ## Get Started
 
@@ -21,7 +20,7 @@ One way to use Mithril Translate: download this project, get the `dist` folder f
 
 ### The `mx.storage` function
 
-By default, the library will set the storage to localStorage if it exists otherwise it will store date in the cookies. However, if you want to select a specific way to store, you can choose among the three storage ( cookie , localStorage, sessionStorage ) by using the `mx.storage` function and constants:
+By default, the library will set the storage to localStorage if it exists otherwise it will store date in the cookies. However, if you want to select a specific way to store, you can choose among the three storage ( cookie , localStorage, sessionStorage, in-memory ) by using the `mx.storage` function and constants:
 
 ```js
     // Set the storage to the default storage (localStorage or Cookie )
@@ -31,6 +30,8 @@ By default, the library will set the storage to localStorage if it exists otherw
     mx.storage( mx.COOKIE_STORAGE );
     // Set the storage to localStorage
     mx.storage( mx.LOCAL_STORAGE );
+    // Set the storage to sessionStorage
+    mx.storage( mx.IN_MEMORY_STORAGE );
     // Set the storage to sessionStorage
     mx.storage( mx.SESSION_STORAGE );
 
