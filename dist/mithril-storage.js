@@ -40,7 +40,7 @@
         var name = key + "=";
         var splitCookies = this.$storage.split( ';' );
         for( var i=0; i < splitCookies.length; i++ ) {
-            var cookie = splitCookie[ i ];
+            var cookie = splitCookies[ i ];
             while ( cookie.charAt( 0 ) == ' ' ) {
                 cookie = cookie.substring( 1 );
             }
