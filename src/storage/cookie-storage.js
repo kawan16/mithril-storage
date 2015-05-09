@@ -21,8 +21,8 @@
         var expiration = new Date();
         var stringifiedValue = JSON.stringify( value );
         expiration.setTime( expiration.getTime() + ( NB_EXPIRATION_DAYS * 24*60*60*1000 ) );
-        var expires = 'expires='+d.toUTCString();
-        this.$storage += key + '=' + stringifiedValue + '; ' + expires;
+        var expires = 'expires='+expiration.toUTCString();
+        this.$storage += ';' + key + '=' + stringifiedValue + '; ' + expires;
     };
 
 
