@@ -15,6 +15,10 @@ One way to use Mithril Translate: download this project, get the `dist` folder f
 </head>
 ```
 
+## Demo
+
+Take a look at this basic [demo](http://kawan16.github.io/mithril-storage) and see Mithril Storage in action.
+
 
 ## How to use it
 
