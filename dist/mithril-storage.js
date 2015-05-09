@@ -27,8 +27,8 @@
         var expiration = new Date();
         var stringifiedValue = JSON.stringify( value );
         expiration.setTime( expiration.getTime() + ( NB_EXPIRATION_DAYS * 24*60*60*1000 ) );
-        var expires = 'expires='+d.toUTCString();
-        this.$storage += key + '=' + stringifiedValue + '; ' + expires;
+        var expires = 'expires='+expiration.toUTCString();
+        this.$storage += ';' + key + '=' + stringifiedValue + '; ' + expires;
     };
 
 
@@ -59,7 +59,7 @@
         var name = key + "=";
         var splitCookies =  this.$storage.split( ';' );
         for( var i=0; i < splitCookies.length; i++ ) {
-            var cookie = splitCookie[ i ];
+            var cookie = splitCookies[ i ];
             while ( cookie.charAt( 0 ) == ' ' ) {
                 cookie = cookie.substring( 1 );
             }
@@ -99,7 +99,12 @@
     * @param {string} key a key
     */
     InMemoryStorage.prototype.get = function ( key ) {
-        return  JSON.parse( this.$storage[ key ] );
+        if( this.$storage[ key ] ) {
+            return  JSON.parse( this.$storage[ key ] );
+        }
+        else {
+            return undefined;
+        }
     };
 
    /**
@@ -179,7 +184,7 @@
      * @param {string} key a key
      */
     SessionStorage.prototype.get = function ( key ) {
-         JSON.parse( this.$storage.getItem( key ) );
+         return JSON.parse( this.$storage.getItem( key ) );
     };
 
     /**
