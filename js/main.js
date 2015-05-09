@@ -5,7 +5,7 @@
 
 var localstorage        = mx.storage( 'localstorage' , mx.LOCAL_STORAGE );
     sessionstorage      = mx.storage( 'sessionsstorage' , mx.SESSION_STORAGE );
-    cookiestorage       = mx.storage( 'sessionsstorage' , mx.COOKIE_STORAGE );
+    cookiestorage       = mx.storage( 'cookiesstorage' , mx.COOKIE_STORAGE );
     inmemorystorage     = mx.storage( 'inmemorystorage' , mx.IN_MEMORY_STORAGE );
 
 var welcome = {};
@@ -66,6 +66,7 @@ add.view = function( controller ) {
                             class: 'text',
                             name: 'firstname',
                             placeholder: 'First Name',
+                            value: controller.firstname(),
                             onchange:  m.withAttr( 'value' , controller.firstname )
                         }
                     )
@@ -76,6 +77,7 @@ add.view = function( controller ) {
                             class: 'text',
                             name: 'lastname',
                             placeholder: 'Last Name',
+                            value: controller.lastname(),
                             onchange:  m.withAttr( 'value' , controller.lastname )
                         }
                     )
@@ -115,6 +117,7 @@ list.controller = function( ) {
 
 
 };
+
 list.view = function( controller ) {
     return [
         m( '.ui.segment',
@@ -222,6 +225,7 @@ list.view = function( controller ) {
 
 var main = {};
 main.controller = function( ) {
+    console.log( ' hello');
     this.addController = m.prop( new add.controller() );
     this.listController = m.prop( new list.controller() );
 };
