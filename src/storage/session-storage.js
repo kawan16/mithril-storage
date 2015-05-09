@@ -22,7 +22,7 @@
      * @param {string} key a key
      */
     SessionStorage.prototype.get = function ( key ) {
-         JSON.parse( this.$storage.getItem( key ) );
+         return JSON.parse( this.$storage.getItem( key ) );
     };
 
     /**

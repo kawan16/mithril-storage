@@ -22,7 +22,12 @@
     * @param {string} key a key
     */
     InMemoryStorage.prototype.get = function ( key ) {
-        return  JSON.parse( this.$storage[ key ] );
+        if( this.$storage[ key ] ) {
+            return  JSON.parse( this.$storage[ key ] );
+        }
+        else {
+            return undefined;
+        }
     };
 
    /**
