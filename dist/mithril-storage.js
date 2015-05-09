@@ -28,7 +28,7 @@
         var stringifiedValue = JSON.stringify( value );
         expiration.setTime( expiration.getTime() + ( NB_EXPIRATION_DAYS * 24*60*60*1000 ) );
         var expires = 'expires='+expiration.toUTCString();
-        this.$storage += ';' + key + '=' + stringifiedValue + '; ' + expires;
+        document.cookie = key + '=' + stringifiedValue + '; ' + expires;
     };
 
 
@@ -37,18 +37,12 @@
      * @param {string} key a key
      */
     CookieStorage.prototype.get = function ( key ) {
-        var name = key + "=";
-        var splitCookies = this.$storage.split( ';' );
-        for( var i=0; i < splitCookies.length; i++ ) {
-            var cookie = splitCookies[ i ];
-            while ( cookie.charAt( 0 ) == ' ' ) {
-                cookie = cookie.substring( 1 );
-            }
-            if (cookie.indexOf( name ) == 0 ) {
-                return JSON.parse( cookie.substring( name.length , cookie.length ) );
-            }
+        var value = document.cookie.replace( new RegExp("/(?:(?:^|.*;\\s*)" + key + "\\s*\\=\\s*([^;]*).*$)|^.*$/"), "$1");
+        if( value ) {
+            return JSON.parse( value.split('=')[1] );
+        } else {
+            return  "";
         }
-        return "";
     };
 
     /**
