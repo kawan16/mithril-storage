@@ -1,6 +1,8 @@
 # Mithril Storage [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 =================
 
+[![Code Climate](https://codeclimate.com/github/kawan16/mithril-storage/badges/gpa.svg)](https://codeclimate.com/github/kawan16/mithril-storage)
+
 Mithril Storage is a library which allows to store locally your mithril applications data through cookies, local storage, in-memory or session storage.
 
 ## Get Started
