@@ -6,7 +6,7 @@ Mithril Storage is a library which allows to store locally your mithril applicat
 
 ## Get Started
 
-One way to use Mithril Translate: download this project, get the `dist` folder files and link to mithril and mithril-storage in the head of your app:
+One way to use Mithril Storage: download this project, get the `dist` folder files and link to mithril and mithril-storage in the head of your app:
 
 ```html
 <head>
