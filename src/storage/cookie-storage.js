@@ -31,9 +31,9 @@
      * @param {string} key a key
      */
     CookieStorage.prototype.get = function ( key ) {
-        var value = document.cookie.replace( new RegExp("/(?:(?:^|.*;\\s*)" + key + "\\s*\\=\\s*([^;]*).*$)|^.*$/"), "$1");
+        var value = document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + key.replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1");
         if( value ) {
-            return JSON.parse( value.split('=')[1] );
+            return JSON.parse( decodeURIComponent(value) );
         } else {
             return  "";
         }
