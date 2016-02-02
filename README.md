@@ -80,7 +80,7 @@ The library allows you to define several other storages than the default one. Th
     // Accessors 
     
     mx.storage( 'userModel' ); // Returns userModel
-    mx.storage( 'userModel' ); // Returns statsStore
+    mx.storage( 'stats' ); // Returns statsStore
     mx.storage( 'persistent' ); // Returns persistentStorage
     
 ```
